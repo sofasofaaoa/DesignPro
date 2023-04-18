@@ -12,13 +12,16 @@
         <div class="col-sm-2">
         {% block sidebar %}
             <ul class="sidebar-nav">
-                <li><a href="{% url 'index' %}">Home</a></li>
-                    <li>User:</li>
+                <li><a href="{% url 'index' %}">Главная</a></li>
+                {% if user.is_authenticated %}
+                    <li>Пользователь:<br>{{ user.get_username }}</li>
                     <li><a href="">Личный кабинет</a></li>
-                    <li><a href="">Создать заявку</a></li>
-                    <li><a href="">Logout</a></li>
-                    <li><a href="">Login</a></li>
-          </ul>
+                    <li><a href="{% url 'logout'%}">Выйти</a></li>
+                {% else %}
+                    <li><a href="{% url 'login' %}">Войти</a></li>
+                    <li><a href="{% url 'register' %}">Зарегистрироваться</a></li>
+                {% endif %}
+            </ul>
         {% endblock %}
         </div>
         <div class="col-sm-10 ">
