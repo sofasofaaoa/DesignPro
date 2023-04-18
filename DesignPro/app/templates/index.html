@@ -2,5 +2,18 @@
 
 {% block content %}
 <h1>Design.pro</h1>
-<h2>Количество заявок в работе: </h2>
+<h2>Количество заявок в работе: {{ in_progress }}</h2>
+    {% if done %}
+    <ul>
+      {% for req in done %}
+      <li>
+        <a href="{{ req.get_absolute_url }}">{{ req.title }}</a>
+          <img src="{{req.photo.url}}">
+      </li>
+      {% endfor %}
+
+    </ul>
+    {% else %}
+      <p>There are no requests in the list.</p>
+    {% endif %}
 {% endblock %}

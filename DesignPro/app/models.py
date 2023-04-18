@@ -1,3 +1,4 @@
+from django.core.validators import FileExtensionValidator
 from django.db import models
 from django.contrib.auth.models import AbstractUser
 
@@ -18,8 +19,15 @@ class Request(models.Model):
         ('c', 'Completed')
     )
     status = models.CharField(max_length=1, choices=STATUS, default='n')
-    comm = models.TextField(max_length=1000, null=True, blank=False)
-    photo = models.ImageField(null=True, blank=False)
+    comm = models.TextField(max_length=500, blank=True, null=True)
+    photo = models.ImageField(upload_to='img/',
+                              help_text="Максимальный размер изображения 2MB",
+                              blank=True,
+                              null=True)
+    design = models.ImageField(upload_to='designs/',
+                               help_text="Максимальный размер изображения 2MB",
+                               blank=True,
+                               null=True)
 
     def __str__(self):
         return self.title
