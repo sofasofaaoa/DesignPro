@@ -10,7 +10,12 @@
       {% for request in request_list %}
       <li>
           {{ request.title }}
-          <a href="{% url 'delete-request' request.pk %}">Удалить</a>
+           {% if user.is_superuser and request.status == 'n' %}
+            <a href="{% url 'update-request' request.pk 'i' %}">Статус - в процессе</a>
+            <a href="{% url 'update-request' request.pk  'c' %}">Статус - выполнено</a>
+        {% elif application.status == 'new' %}
+          <a href="{% url 'delete_request' request.pk %}">Удалить</a>
+        {% endif %}
       </li>
       {% endfor %}
 

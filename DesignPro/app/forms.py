@@ -2,7 +2,7 @@ from django import forms
 from django.core.exceptions import ValidationError
 from django.core.validators import RegexValidator
 
-from .models import MyUser
+from .models import MyUser, Request
 
 
 class RegisterUserForm(forms.ModelForm):
@@ -63,3 +63,14 @@ class RegisterUserForm(forms.ModelForm):
         fields = ('first_name', 'last_name', 'patronymic',
                   'username', 'email', 'password', 'password2', 'personal')
 
+
+class AddDesignRequest(forms.ModelForm):
+    class Meta:
+        model = Request
+        fields = ['design']
+
+
+class AddCommentRequest(forms.ModelForm):
+    class Meta:
+        model = Request
+        fields = ['comm']

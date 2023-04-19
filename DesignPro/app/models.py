@@ -8,7 +8,7 @@ class MyUser(AbstractUser):
 
 
 class Request(models.Model):
-    user = models.ForeignKey('MyUser', on_delete=models.SET_NULL, null=True)
+    user = models.ForeignKey('MyUser', on_delete=models.SET_NULL, null=True, default='user.username')
     title = models.CharField(max_length=200)
     summary = models.TextField(max_length=1000, help_text='Введите описание вашего проекта')
     date_time = models.DateTimeField(auto_now_add=True)
