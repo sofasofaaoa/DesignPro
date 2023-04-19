@@ -1,19 +1,25 @@
-{% extends "base_generic.html" %}
-
+{% extends 'base_generic.html' %}
 {% block content %}
-<h1>Design.pro</h1>
-<h2>Количество заявок в работе: {{ in_progress }}</h2>
-    {% if done %}
-    <ul>
-      {% for req in done %}
-      <li>
-        <a href="{{ req.get_absolute_url }}">{{ req.title }}</a>
-          <img src="{{req.photo.url}}">
-      </li>
-      {% endfor %}
-
-    </ul>
+  <div class="index_name">
+    {% if user.is_authenticated %}
+      <h1>Привет, {{ user.username }}!</h1>
     {% else %}
-      <p>There are no requests in the list.</p>
+      <h1>Привет, гость!</h1>
     {% endif %}
+  </div>
+
+  <p class="app_inPr">Количество заявок, принятых в работу на нашем сайте: {{ in_progress }}</p>
+  <p class="app_done_prim">Вот пример наших последних заявок: </p>
+
+
+    {% for req in done %}
+      {% if forloop.counter <= 4 %}
+        <div class="req_done">
+            <h4>{{ req.title }}</h4>
+            <p>{{ req.category }}</p>
+            <p>{{ req.date }}</p>
+        </div>
+      {% endif %}
+    {% endfor %}
+
 {% endblock %}

@@ -1,0 +1,21 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+    <h1>Категории</h1>
+<a href="{% url 'create-cat' %}">Создать категорию</a>
+
+    {% if category_list %}
+    <ul>
+
+      {% for cat in category_list %}
+      <li>
+          {{ cat.title }}
+        <a href="{% url 'delete-cat' cat.pk %}">Удалить</a>
+      </li>
+      {% endfor %}
+
+    </ul>
+    {% else %}
+      <p>There are no categories in the list.</p>
+    {% endif %}
+{% endblock %}

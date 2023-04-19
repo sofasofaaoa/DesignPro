@@ -1,5 +1,5 @@
 from django.contrib.auth.decorators import permission_required
-from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 from django.contrib.auth.views import LoginView, LogoutView
 from django.shortcuts import render
 from django.urls import reverse_lazy
@@ -16,18 +16,15 @@ def index(request):
                                                   'done': done})
 
 
-@permission_required('user.is_superuser')
-class RequestListView(ListView):
+class RequestListView(LoginRequiredMixin, ListView):
     model = Request
+    template_name = 'DesignPro/request_list.html'
 
 
-class RequestDetailView(DetailView):
-    model = Request
-
-
-@permission_required('user.is_superuser')
-class CategoryListView(ListView):
+class CategoryListView(PermissionRequiredMixin, ListView):
     model = Category
+    permission_required = 'user.is_superuser'
+    template_name = 'DesignPro/category_list.html'
 
 
 class BBLoginView(LoginView):
@@ -50,26 +47,35 @@ class RegisterView(CreateView):
 class CreateRequest(LoginRequiredMixin, CreateView):
     model = Request
     fields = '__all__'
+    success_url = reverse_lazy('requests')
+    template_name = 'DesignPro/request_form.html'
 
 
-class DeleteRequest(LoginRequiredMixin, DeleteView):
+class DeleteRequest(PermissionRequiredMixin, DeleteView):
     model = Request
-    success_url = reverse_lazy('profile')
+    success_url = reverse_lazy('requests')
+    permission_required = 'user.is_superuser'
+    template_name = 'DesignPro/request_confirm_delete.html'
 
 
-@permission_required('user.is_superuser')
-class UpdateRequest(UpdateView):
+class UpdateRequest(PermissionRequiredMixin, UpdateView):
     model = Request
     fields = ['status', 'photo', 'comm']
+    permission_required = 'user.is_superuser'
+    template_name = 'DesignPro/request_form.html'
 
 
-@permission_required('user.is_superuser')
-class CreateCategory(CreateView):
+class CreateCategory(PermissionRequiredMixin, CreateView):
     model = Category
     fields = '__all__'
+    permission_required = 'user.is_superuser'
+
+    success_url = reverse_lazy('categories')
+    template_name = 'DesignPro/category_form.html'
 
 
-@permission_required('user.is_superuser')
-class DeleteCategory(DeleteView):
+class DeleteCategory(PermissionRequiredMixin, DeleteView):
     model = Category
     success_url = reverse_lazy('categories')
+    permission_required = 'user.is_superuser'
+    template_name = 'DesignPro/category_confirm_delete.html'

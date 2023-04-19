@@ -62,3 +62,4 @@ class RegisterUserForm(forms.ModelForm):
         model = MyUser
         fields = ('first_name', 'last_name', 'patronymic',
                   'username', 'email', 'password', 'password2', 'personal')
+

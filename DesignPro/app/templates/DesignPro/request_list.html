@@ -1,0 +1,21 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+    <h1>Заявки</h1>
+    <a href="{% url 'create-request' %}">Создать заявку</a>
+
+    {% if request_list %}
+    <ul>
+
+      {% for request in request_list %}
+      <li>
+          {{ request.title }}
+          <a href="{% url 'delete-request' request.pk %}">Удалить</a>
+      </li>
+      {% endfor %}
+
+    </ul>
+    {% else %}
+      <p>Нет заявок</p>
+    {% endif %}
+{% endblock %}

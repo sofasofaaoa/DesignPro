@@ -1,0 +1,14 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+
+<h1>Удалить заявку</h1>
+
+<p>Вы точно хотите удалить категорию {{ request.title }}?</p>
+
+<form action="" method="POST">
+  {% csrf_token %}
+  <input type="submit" value="Удалить" />
+</form>
+
+{% endblock %}
