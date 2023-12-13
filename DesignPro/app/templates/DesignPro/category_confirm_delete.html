@@ -2,9 +2,9 @@
 
 {% block content %}
 
-<h1>Удалить заявку</h1>
+<h1>Удалить категорию</h1>
 
-<p>Вы точно хотите удалить категорию {{ request.title }}?</p>
+<p>Вы точно хотите удалить категорию {{ category.title }}?</p>
 
 <form action="" method="POST">
   {% csrf_token %}

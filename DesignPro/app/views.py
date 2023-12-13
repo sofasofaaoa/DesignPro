@@ -63,13 +63,6 @@ class DeleteRequest(LoginRequiredMixin, DeleteView):
     template_name = 'DesignPro/request_confirm_delete.html'
 
 
-class UpdateRequest(PermissionRequiredMixin, UpdateView):
-    model = Request
-    fields = ['status', 'photo', 'comm']
-    permission_required = 'user.is_superuser'
-    template_name = 'DesignPro/request_form.html'
-
-
 class CreateCategory(PermissionRequiredMixin, CreateView):
     model = Category
     fields = '__all__'
